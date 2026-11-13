@@ -17,6 +17,8 @@ Objectif : héberger mes propres services du quotidien (médias, photos, mots de
 
 Une machine modeste et peu énergivore : tout l'intérêt est d'optimiser les ressources (conteneurs LXC légers plutôt que des VM quand c'est possible).
 
+**Sauvegardes** : sauvegarde automatique quotidienne de tous les conteneurs et de la VM (Proxmox Backup Job).
+
 ---
 
 ## 🗺️ Architecture
@@ -52,12 +54,22 @@ flowchart TB
 
 ---
 
+## 📸 Aperçu
+
+![Proxmox](docs/img/proxmox.png)
+
+| Page d'accueil | AdGuard Home |
+|---|---|
+| ![Accueil](docs/img/homepage.png) | ![AdGuard](docs/img/adguard.png) |
+
+---
+
 ## 🧩 Services
 
 | ID | Type | Service | Rôle |
 |---|---|---|---|
 | 100 | LXC | **Jellyfin** | Serveur de streaming média (personnalisé sous le nom « Dupflix ») |
-| 101 | LXC | **AdGuard Home** | DNS filtrant : blocage des publicités et traqueurs pour tout le réseau |
+| 101 | LXC | **AdGuard Home** | DNS filtrant : blocage des publicités et traqueurs pour tout le réseau (~26 % des requêtes bloquées) |
 | 102 | LXC | **Docker** | Hôte des conteneurs ci-dessous |
 | | ↳ | Nginx Proxy Manager | Reverse proxy + certificats HTTPS (Let's Encrypt) |
 | | ↳ | DuckDNS | Nom de domaine dynamique (IP publique non fixe) |
@@ -94,7 +106,7 @@ Le serveur a été **migré d'un réseau à un autre** (déménagement) sans int
 ## 🚀 Évolutions prévues
 
 - [ ] Ajout d'un NAS pour le stockage et les sauvegardes
-- [ ] Sauvegardes automatiques des conteneurs (Proxmox Backup)
+- [ ] Sauvegardes hors site (copie sur un autre support)
 - [ ] Dashboard web perso (PHP + JS) : état des services et température du thermostat
 - [ ] Supervision (alertes en cas de service arrêté)
 
